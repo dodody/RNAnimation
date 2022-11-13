@@ -11,18 +11,19 @@ import AnimatedOtherMethod from './src/chapter2/AnimatedOtherMethod';
 import AnimatedProperty from './src/chapter2/AnimatedProperty';
 
 import Snackbar from './src/chapter3/Snackbar';
+import DrawerMenu from './src/chapter3/DrawerMenu';
 
 const App = () => {
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center',
-      }}
-    >
-      <Snackbar />
-    </SafeAreaView>
+    // <SafeAreaView
+    //   style={{
+    //     flex: 1,
+    //     // justifyContent: 'center',
+    //     // alignItems: 'center',
+    //   }}
+    // >
+    <DrawerMenu />
+    // </SafeAreaView>
   );
 };
 
