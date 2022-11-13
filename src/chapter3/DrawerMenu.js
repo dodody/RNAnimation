@@ -65,10 +65,6 @@ export default function DrawerMenu() {
               inputRange: [0, 1],
               outputRange: ['#00000000', '#00000060'],
             }),
-            // zIndex: interpolateAnim.interpolate({
-            //   inputRange: [0, 1],
-            //   outputRange: [0, 2],
-            // }),
           }}
         />
       </TouchableWithoutFeedback>
