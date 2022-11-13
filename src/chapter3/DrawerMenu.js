@@ -35,6 +35,44 @@ export default function DrawerMenu() {
 
   return (
     <>
+      {/* HOME */}
+      <View style={{backgroundColor: '#aff100', flex: 1}}>
+        <SafeAreaView style={{alignItems: 'flex-end'}}>
+          <TouchableHighlight
+            underlayColor={'#ffffff50'}
+            onPress={onOpenPress}
+            style={{borderRadius: 100}}
+          >
+            <View style={{padding: 14}}>
+              <Icon name="menu" size={30} color="#222" />
+            </View>
+          </TouchableHighlight>
+        </SafeAreaView>
+      </View>
+
+      {/* MENU BG */}
+      <TouchableWithoutFeedback onPress={onHidePress}>
+        <Animated.View
+          style={{
+            position: 'absolute',
+            top: 0,
+            width: interpolateAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: ['0%', '300%'],
+            }),
+            height: '100%',
+            backgroundColor: interpolateAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: ['#00000000', '#00000060'],
+            }),
+            // zIndex: interpolateAnim.interpolate({
+            //   inputRange: [0, 1],
+            //   outputRange: [0, 2],
+            // }),
+          }}
+        />
+      </TouchableWithoutFeedback>
+
       <Animated.View
         style={{
           position: 'absolute',
@@ -78,41 +116,6 @@ export default function DrawerMenu() {
           </View>
         </SafeAreaView>
       </Animated.View>
-
-      {/* MENU BG */}
-      <TouchableWithoutFeedback onPress={onHidePress}>
-        <Animated.View
-          style={{
-            position: 'absolute',
-            top: 0,
-            width: '100%',
-            height: '100%',
-            backgroundColor: interpolateAnim.interpolate({
-              inputRange: [0, 1],
-              outputRange: ['#00000000', '#00000060'],
-            }),
-            zIndex: interpolateAnim.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, 2],
-            }),
-          }}
-        />
-      </TouchableWithoutFeedback>
-
-      {/* HOME */}
-      <View style={{backgroundColor: '#aff100', flex: 1}}>
-        <SafeAreaView style={{alignItems: 'flex-end'}}>
-          <TouchableHighlight
-            underlayColor={'#ffffff50'}
-            onPress={onOpenPress}
-            style={{borderRadius: 100}}
-          >
-            <View style={{padding: 14}}>
-              <Icon name="menu" size={30} color="#222" />
-            </View>
-          </TouchableHighlight>
-        </SafeAreaView>
-      </View>
     </>
   );
 }
