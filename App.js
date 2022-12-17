@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {UIManager, Platform} from 'react-native';
 
 import AnimatedComponents from './src/chapter2/AnimatedComponents';
 import AnimatedValue from './src/chapter2/AnimatedValue';
@@ -12,19 +12,31 @@ import AnimatedProperty from './src/chapter2/AnimatedProperty';
 
 import Snackbar from './src/chapter3/Snackbar';
 import DrawerMenu from './src/chapter3/DrawerMenu';
+import Collapse from './src/chapter3/Collapse';
+import Progressbar from './src/chapter3/Progressbar';
+import Skeleton from './src/chapter3/Skeleton';
+import SnowAnimation from './src/chapter3/SnowAnimation';
+
+import LayoutAnimationIntro from './src/chapter4/LayoutAnimationIntro';
+import LayoutAnimationPageHeader from './src/chapter4/LayoutAnimationPageHeader';
+import LayoutAnimationCollapse from './src/chapter4/LayoutAnimationCollapse';
+
+import InteractionManagerIntro from './src/chapter5/InteractionManagerIntro';
+
+import PanresponderIntro from './src/chapter6/PanresponderIntro';
+import PanresponderBall from './src/chapter6/PanresponderBall';
+import PanresponderModal from './src/chapter6/PanresponderModal';
+import PanresponderBannerSlider from './src/chapter6/PanresponderBannerSlider';
+import PanresponderFontSlider from './src/chapter6/PanresponderFontSlider';
+
+import ViewLayoutEvent from './src/chapter7/ViewLayoutEvent';
+
+import FlatlistCheckRenderItems from './src/chapter8/FlatlistCheckRenderItems';
+
+import YoutubeMusic from './src/youtubeMusic/YoutubeMusic';
 
 const App = () => {
-  return (
-    // <SafeAreaView
-    //   style={{
-    //     flex: 1,
-    //     // justifyContent: 'center',
-    //     // alignItems: 'center',
-    //   }}
-    // >
-    <DrawerMenu />
-    // </SafeAreaView>
-  );
+  return <YoutubeMusic />;
 };
 
 export default App;
