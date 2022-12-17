@@ -1,51 +1,71 @@
 import React from 'react';
-import {View, Text, Image, SafeAreaView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  SafeAreaView,
+  TouchableOpacity,
+  Animated,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function LogoHeader() {
+export default function LogoHeader({headerAnim}) {
   return (
     <SafeAreaView>
-      <View
+      <Animated.View
         style={{
-          marginLeft: 14,
-          marginRight: 10,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          marginTop: headerAnim.interpolate({
+            inputRange: [-40, 0, 40],
+            outputRange: [0, 0, -45],
+          }),
+          opacity: headerAnim.interpolate({
+            inputRange: [-40, 0, 20],
+            outputRange: [1, 1, 0],
+          }),
         }}
       >
-        <Image
-          source={require('../../../assets/logo.png')}
-          style={{width: 90, height: 30}}
-        />
-        <View style={{flexDirection: 'row'}}>
-          <IconItem name="cast" />
-          <IconItem name="search" />
-          <TouchableOpacity>
-            <View
-              style={{
-                height: 45,
-                width: 45,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
+        <View
+          style={{
+            marginLeft: 14,
+            marginRight: 10,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Image
+            source={require('../../../assets/logo.png')}
+            style={{width: 90, height: 30}}
+          />
+          <View style={{flexDirection: 'row'}}>
+            <IconItem name="cast" />
+            <IconItem name="search" />
+            <TouchableOpacity>
               <View
                 style={{
-                  height: 30,
-                  width: 30,
-                  backgroundColor: '#555',
-                  borderRadius: 100,
+                  height: 45,
+                  width: 45,
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
               >
-                <Icon name="perm-identity" size={20} color="white" />
+                <View
+                  style={{
+                    height: 30,
+                    width: 30,
+                    backgroundColor: '#555',
+                    borderRadius: 100,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Icon name="perm-identity" size={20} color="white" />
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </Animated.View>
     </SafeAreaView>
   );
 }
