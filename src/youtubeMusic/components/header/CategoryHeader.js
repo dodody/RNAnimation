@@ -22,7 +22,10 @@ export default function CategoryHeader({
       >
         {category.map((value, index) => {
           return (
-            <TouchableOpacity onPress={() => onPressCategory(index)}>
+            <TouchableOpacity
+              onPress={() => onPressCategory(index)}
+              key={index}
+            >
               <View
                 style={{
                   padding: 8,

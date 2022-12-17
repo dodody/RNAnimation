@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {BOTTOM_HEIGHT} from '../utils';
+import {BOTTOM_HEIGHT} from '../../utils';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {getBottomSpace} from 'react-native-iphone-x-helper';
 
