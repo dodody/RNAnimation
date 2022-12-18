@@ -1,27 +1,112 @@
-import React from 'react';
-import {View, Image} from 'react-native';
+import React, {useRef} from 'react';
+import {View, Image, PanResponder, Animated, Dimensions} from 'react-native';
 import PlaylistFull from './PlaylistFull';
 import PlaylistMini from './PlaylistMini';
+const {width, height} = Dimensions.get('window');
 
-export default function Playlist() {
+export default function Playlist({playlistAnim}) {
+  const playlistRef = useRef('mini'); // mini, full
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderMove: (evt, gestureState) => {
+        const {dy} = gestureState;
+        if (playlistRef.current === 'mini') {
+          playlistAnim.setValue(-dy);
+        }
+
+        if (playlistRef.current === 'full') {
+          console.log(height - dy, dy);
+          playlistAnim.setValue(height - dy);
+        }
+      },
+      onPanResponderEnd: (evt, gestureState) => {
+        const {dy} = gestureState;
+        if (dy < -100 && playlistRef.current === 'mini') {
+          Animated.spring(playlistAnim, {
+            toValue: height,
+            useNativeDriver: false,
+          }).start();
+          playlistRef.current = 'full';
+        }
+
+        if (-100 < dy && playlistRef.current === 'mini') {
+          Animated.spring(playlistAnim, {
+            toValue: 0,
+            useNativeDriver: false,
+          }).start();
+        }
+
+        if (100 < dy && playlistRef.current === 'full') {
+          Animated.spring(playlistAnim, {
+            toValue: 0,
+            useNativeDriver: false,
+          }).start();
+          playlistRef.current = 'mini';
+        }
+
+        if (dy < 100 && playlistRef.current === 'full') {
+          Animated.spring(playlistAnim, {
+            toValue: height,
+            useNativeDriver: false,
+          }).start();
+        }
+      },
+    }),
+  ).current;
   return (
-    <View
+    <Animated.View
+      {...panResponder.panHandlers}
       style={{
         backgroundColor: '#222',
         borderBottomColor: '#666',
         borderBottomWidth: 1,
-        height: 60,
+        marginTop: playlistAnim.interpolate({
+          inputRange: [0, height / 2, height],
+          outputRange: [0, -200, -200],
+        }),
+        height: playlistAnim.interpolate({
+          inputRange: [0, 100],
+          outputRange: [60, 160],
+        }),
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: 10,
+        paddingLeft: playlistAnim.interpolate({
+          inputRange: [0, height / 2, height],
+          outputRange: [10, width * 0.1, width * 0.1],
+        }),
       }}
     >
-      <Image
-        source={{uri: 'https://picsum.photos/50'}}
-        style={{width: 50, height: 50}}
-      />
+      <Animated.View
+        style={{
+          width: playlistAnim.interpolate({
+            inputRange: [0, height / 2, height],
+            outputRange: [50, width * 0.8, width * 0.8],
+          }),
+          height: playlistAnim.interpolate({
+            inputRange: [0, height / 2, height],
+            outputRange: [50, width * 0.8, width * 0.8],
+          }),
+        }}
+      >
+        <Image
+          source={{uri: 'https://picsum.photos/300'}}
+          style={{width: '100%', height: '100%'}}
+        />
+      </Animated.View>
       {/* <PlaylistFull /> */}
-      <PlaylistMini />
-    </View>
+      <Animated.View
+        style={{
+          flex: 1,
+          opacity: playlistAnim.interpolate({
+            inputRange: [0, height / 2],
+            outputRange: [1, 0],
+          }),
+        }}
+      >
+        <PlaylistMini />
+      </Animated.View>
+    </Animated.View>
   );
 }
