@@ -9,6 +9,7 @@ import LogoHeader from './components/header/LogoHeader';
 import MusicListSmall from './components/musiclist/MusicListSmall';
 import MusicListMedium from './components/musiclist/MusicListMedium';
 import MusicListLarge from './components/musiclist/MusicListLarge';
+import Playlist from './components/playlist/Playlist';
 import useYoutubeMusic from './useYoutubeMusic';
 
 export default function YoutubeMusic() {
@@ -51,6 +52,7 @@ export default function YoutubeMusic() {
           <MusicListLarge />
         </View>
       </ScrollView>
+      <Playlist />
       <Bottom />
     </View>
   );
