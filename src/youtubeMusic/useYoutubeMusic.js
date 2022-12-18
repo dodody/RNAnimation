@@ -18,12 +18,12 @@ export default function useYoutubeMusic() {
     const dy = y - scrollStartRef.current;
 
     // 위로 올라가는 헤더
-    if (0 < dy && dy < 40 && showHeaderRef.current) {
+    if (0 < dy && showHeaderRef.current) {
       headerAnim.setValue(dy);
     }
     // 아래로 내려가는 헤더
     if (-40 < dy && dy < 0 && !showHeaderRef.current) {
-      headerAnim.setValue(40 + dy);
+      headerAnim.setValue(100 + dy);
     }
 
     headerBgAnim.setValue(y);
@@ -36,7 +36,7 @@ export default function useYoutubeMusic() {
     // 위로 올라가는 헤더
     if (0 < dy && showHeaderRef.current) {
       Animated.spring(headerAnim, {
-        toValue: 40,
+        toValue: 100,
         useNativeDriver: false,
       }).start();
       showHeaderRef.current = false;
