@@ -6,6 +6,7 @@ export default function useYoutubeMusic() {
   // header
   const showHeaderRef = useRef(true);
   const headerAnim = useRef(new Animated.Value(0)).current;
+  const headerBgAnim = useRef(new Animated.Value(0)).current;
 
   const onScrollBeginDrag = e => {
     const y = e.nativeEvent.contentOffset.y;
@@ -24,6 +25,8 @@ export default function useYoutubeMusic() {
     if (-40 < dy && dy < 0 && !showHeaderRef.current) {
       headerAnim.setValue(40 + dy);
     }
+
+    headerBgAnim.setValue(y);
   };
 
   const onScrollEndDrag = e => {
@@ -48,5 +51,11 @@ export default function useYoutubeMusic() {
     }
   };
 
-  return {onScrollEndDrag, onScrollBeginDrag, onScroll, headerAnim};
+  return {
+    onScrollEndDrag,
+    onScrollBeginDrag,
+    onScroll,
+    headerAnim,
+    headerBgAnim,
+  };
 }

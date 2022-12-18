@@ -1,15 +1,22 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Animated} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-export default function HeaderBackground({selectedCategory}) {
+export default function HeaderBackground({selectedCategory, headerBgAnim}) {
   return (
-    <View
+    <Animated.View
       style={{
         position: 'absolute',
         height: 350,
         width: '100%',
-        // backgroundColor: '#222',
+        top: headerBgAnim.interpolate({
+          inputRange: [-1, 0, 100],
+          outputRange: [0, 0, -100],
+        }),
+        opacity: headerBgAnim.interpolate({
+          inputRange: [0, 100],
+          outputRange: [1, 0],
+        }),
       }}
     >
       {selectedCategory === undefined ? (
@@ -42,6 +49,6 @@ export default function HeaderBackground({selectedCategory}) {
           />
         </>
       )}
-    </View>
+    </Animated.View>
   );
 }
