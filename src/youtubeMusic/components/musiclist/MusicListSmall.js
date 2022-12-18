@@ -1,17 +1,63 @@
 import {faker} from '@faker-js/faker';
-import React from 'react';
+import React, {useRef} from 'react';
 import {View, Text, Image, ScrollView, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 
 const {width, height} = Dimensions.get('window');
 export default function MusicListSmall() {
+  const scrollStartRef = useRef();
+  const scrollRef = useRef();
+  const pageRef = useRef(1);
+
   return (
     <View>
       <Title />
       <ScrollView
+        ref={scrollRef}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{paddingHorizontal: 10}}
+        scrollEventThrottle={1}
+        onScrollBeginDrag={e => {
+          const x = e.nativeEvent.contentOffset.x;
+          scrollStartRef.current = x;
+        }}
+        onScrollEndDrag={e => {
+          const x = e.nativeEvent.contentOffset.x;
+          const dx = x - scrollStartRef.current;
+
+          // 오른쪽 page로 붙는 애니메이션
+          if (width / 4 < dx && pageRef.current !== 3) {
+            scrollRef.current?.scrollTo({
+              x: width * 0.92 * pageRef.current,
+              animated: true,
+            });
+            pageRef.current = pageRef.current + 1;
+          }
+
+          if (0 < dx && dx < width / 4) {
+            scrollRef.current?.scrollTo({
+              x: width * 0.92 * (pageRef.current - 1),
+              animated: true,
+            });
+          }
+
+          // 왼쪽 페이지로 넘어가는 애니메이션
+          if (dx < -width / 4 && pageRef.current !== 1) {
+            scrollRef.current?.scrollTo({
+              x: width * 0.92 * (pageRef.current - 2),
+              animated: true,
+            });
+            pageRef.current = pageRef.current - 1;
+          }
+
+          if (-width / 4 < dx && dx < 0) {
+            scrollRef.current?.scrollTo({
+              x: width * 0.92 * (pageRef.current - 1),
+              animated: true,
+            });
+          }
+        }}
       >
         {[...Array(3)].map((val, idx) => {
           return (
