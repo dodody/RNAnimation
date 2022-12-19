@@ -35,8 +35,10 @@ import FlatlistCheckRenderItems from './src/chapter8/FlatlistCheckRenderItems';
 
 import YoutubeMusic from './src/youtubeMusic/YoutubeMusic';
 
+import MobilePay from './src/mobilePay/MobilePay';
+
 const App = () => {
-  return <YoutubeMusic />;
+  return <MobilePay />;
 };
 
 export default App;
