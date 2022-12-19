@@ -1,5 +1,12 @@
 import React, {useRef} from 'react';
-import {View, Image, PanResponder, Animated, Dimensions} from 'react-native';
+import {
+  View,
+  Image,
+  PanResponder,
+  Animated,
+  Dimensions,
+  Text,
+} from 'react-native';
 import PlaylistFull from './PlaylistFull';
 import PlaylistMini from './PlaylistMini';
 const {width, height} = Dimensions.get('window');
@@ -78,23 +85,53 @@ export default function Playlist({playlistAnim}) {
         }),
       }}
     >
-      <Animated.View
-        style={{
-          width: playlistAnim.interpolate({
-            inputRange: [0, height / 2, height],
-            outputRange: [50, width * 0.8, width * 0.8],
-          }),
-          height: playlistAnim.interpolate({
-            inputRange: [0, height / 2, height],
-            outputRange: [50, width * 0.8, width * 0.8],
-          }),
-        }}
-      >
-        <Image
-          source={{uri: 'https://picsum.photos/300'}}
-          style={{width: '100%', height: '100%'}}
-        />
-      </Animated.View>
+      <View>
+        <Animated.View
+          style={{
+            height: playlistAnim.interpolate({
+              inputRange: [height / 2, height],
+              outputRange: [0, 100],
+            }),
+            opacity: playlistAnim.interpolate({
+              inputRange: [height / 2, height],
+              outputRange: [0, 1],
+            }),
+          }}
+        >
+          <Text style={{borderWidth: 1, height: '100%'}}>Top</Text>
+        </Animated.View>
+        <Animated.View
+          style={{
+            width: playlistAnim.interpolate({
+              inputRange: [0, height / 2, height],
+              outputRange: [50, width * 0.8, width * 0.8],
+            }),
+            height: playlistAnim.interpolate({
+              inputRange: [0, height / 2, height],
+              outputRange: [50, width * 0.8, width * 0.8],
+            }),
+          }}
+        >
+          <Image
+            source={{uri: 'https://picsum.photos/300'}}
+            style={{width: '100%', height: '100%'}}
+          />
+        </Animated.View>
+        <Animated.View
+          style={{
+            height: playlistAnim.interpolate({
+              inputRange: [height / 2, height],
+              outputRange: [0, 250],
+            }),
+            opacity: playlistAnim.interpolate({
+              inputRange: [height / 2, height],
+              outputRange: [0, 1],
+            }),
+          }}
+        >
+          <Text style={{borderWidth: 1, height: '100%'}}>Middle</Text>
+        </Animated.View>
+      </View>
       {/* <PlaylistFull /> */}
       <Animated.View
         style={{
@@ -106,6 +143,24 @@ export default function Playlist({playlistAnim}) {
         }}
       >
         <PlaylistMini />
+      </Animated.View>
+      <Animated.View
+        style={{
+          position: 'absolute',
+          width,
+          height: playlistAnim.interpolate({
+            inputRange: [height / 2, height],
+            outputRange: [0, 100],
+          }),
+          borderWidth: 1,
+          bottom: 0,
+          opacity: playlistAnim.interpolate({
+            inputRange: [height / 2, height],
+            outputRange: [0, 1],
+          }),
+        }}
+      >
+        <Text>Bottom</Text>
       </Animated.View>
     </Animated.View>
   );
