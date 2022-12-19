@@ -7,8 +7,10 @@ import {
   Dimensions,
   Text,
 } from 'react-native';
-import PlaylistFull from './PlaylistFull';
 import PlaylistMini from './PlaylistMini';
+import PlaylistFullTop from './playlistFull/PlaylistFullTop';
+import PlaylistFullBottom from './playlistFull/PlaylistFullBottom';
+import PlaylistFullMid from './playlistFull/PlaylistFullMid';
 const {width, height} = Dimensions.get('window');
 
 export default function Playlist({playlistAnim}) {
@@ -86,20 +88,7 @@ export default function Playlist({playlistAnim}) {
       }}
     >
       <View>
-        <Animated.View
-          style={{
-            height: playlistAnim.interpolate({
-              inputRange: [height / 2, height],
-              outputRange: [0, 100],
-            }),
-            opacity: playlistAnim.interpolate({
-              inputRange: [height / 2, height],
-              outputRange: [0, 1],
-            }),
-          }}
-        >
-          <Text style={{borderWidth: 1, height: '100%'}}>Top</Text>
-        </Animated.View>
+        <PlaylistFullTop playlistAnim={playlistAnim} />
         <Animated.View
           style={{
             width: playlistAnim.interpolate({
@@ -117,22 +106,8 @@ export default function Playlist({playlistAnim}) {
             style={{width: '100%', height: '100%'}}
           />
         </Animated.View>
-        <Animated.View
-          style={{
-            height: playlistAnim.interpolate({
-              inputRange: [height / 2, height],
-              outputRange: [0, 250],
-            }),
-            opacity: playlistAnim.interpolate({
-              inputRange: [height / 2, height],
-              outputRange: [0, 1],
-            }),
-          }}
-        >
-          <Text style={{borderWidth: 1, height: '100%'}}>Middle</Text>
-        </Animated.View>
+        <PlaylistFullMid playlistAnim={playlistAnim} />
       </View>
-      {/* <PlaylistFull /> */}
       <Animated.View
         style={{
           flex: 1,
@@ -144,24 +119,7 @@ export default function Playlist({playlistAnim}) {
       >
         <PlaylistMini />
       </Animated.View>
-      <Animated.View
-        style={{
-          position: 'absolute',
-          width,
-          height: playlistAnim.interpolate({
-            inputRange: [height / 2, height],
-            outputRange: [0, 100],
-          }),
-          borderWidth: 1,
-          bottom: 0,
-          opacity: playlistAnim.interpolate({
-            inputRange: [height / 2, height],
-            outputRange: [0, 1],
-          }),
-        }}
-      >
-        <Text>Bottom</Text>
-      </Animated.View>
+      <PlaylistFullBottom playlistAnim={playlistAnim} />
     </Animated.View>
   );
 }
